@@ -1,0 +1,23 @@
+.legend.horizontal .legend-item {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.legend.vertical .legend-item {
+  display: block;
+  margin-top: 5px;
+}
+
+.legend-item {
+  color: black;
+  cursor: pointer;
+}
+
+.legend-item.disabled {
+  color: #d3d3d3;
+  text-decoration: line-through;
+}
+
+.legend-item:hover {
+  color: lightslategray;
+}
