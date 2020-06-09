@@ -1,38 +1,12 @@
 import React, { useState } from 'react';
 import './index.css';
+import LegendItem from './LegendItem';
 
-/**
- * componente que renderiza um item de legenda
- * @param {*} props propriedades do componente que inclue:
- *  - index (posição deste item de legenda na lista de legendas)
- *  - disabled (flag indicando se esta legenda está desabilitada ou não)
- *  - item (dado a ser renderizado no item)
- *  - onClick (callback executado quando é realizado um click sobre o item)
- *  - onHover (callback executado quando o cursor do mouse está sobre o item)
- */
-const LegendItem = ({index, disabled, item, onClick, onHover}) => {
+function Icon({props}) {
+  return <span></span>
+}
 
-  const className = `legend-item ${disabled ? ' disabled' : ''}`;
-
-  const target = {
-    ...item,
-    index,
-  };
-
-  return (
-    <li
-      className={className}
-      key={item.label}
-      onClick={ev => onClick(target)}
-      onMouseOver={ev => onHover({target, enter: true})}
-      onMouseLeave={ev => onHover({target, enter: false})}
-    >
-      {item.label}
-    </li>
-  );
-};
-
-const Legend = ({data, onClick, onHover, orientation}) => {
+const Legend = ({data, onClick, onHover, orientation, icon = <Icon />}) => {
 
   const [selectedLegends, setSelectedLegends] = useState([]);
 
@@ -90,11 +64,24 @@ const Legend = ({data, onClick, onHover, orientation}) => {
     }
   }
 
+  function renderLegendItem(item, index) {
+    return (
+      <LegendItem
+        disabled={isSelected(item)}
+        index={index}
+        key={item.label}
+        item={item}
+        onClick={handleOnClickEvent}
+        onHover={onHover}
+        icon={icon} />
+    );
+  }
+
   const legendClassName = `legend ${orientation}`;
 
   return (
     <ul className={legendClassName}>
-      {data.map((item, index) => <LegendItem disabled={isSelected(item)} index={index} key={item.label} item={item} onClick={handleOnClickEvent} onHover={onHover} /> )}
+      {data.map(renderLegendItem)}
     </ul>
   );
 };

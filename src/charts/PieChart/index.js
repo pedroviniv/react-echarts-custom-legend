@@ -55,18 +55,12 @@ export default class PieChart extends React.Component {
       return;
     }
 
-    console.log('legend clicked: ', legend);
-
     const action = {
       type: 'legendToggleSelect',
       name: legend.label
     };
-
-    console.log('dispatching action: ', action);
     
     this.echarts.dispatchAction(action);
-
-    console.log('action dispatched');
   }
 
   /**
@@ -88,20 +82,35 @@ export default class PieChart extends React.Component {
       name,
     };
 
-    console.log('dispatching action: ', action);
-
     echartInstance.dispatchAction(action);
-
-    console.log('dispatched!');
   }
 
   onLegendHover(event) {
-    console.log(`legend ${event.target.label} is${!event.enter ? '\'nt' : ' '} focused!`);
     this.hightlightOrDownPlay(event.target.label, event.enter);
   }
 
   handleChartReady(echartsInstance) {
     this.echarts = echartsInstance;
+  }
+
+  setColors(legends, colors) {
+    
+    const legendsWithColor = legends.map((legend, index) => ({
+      ...legend,
+      color: colors[index % colors.length],
+    }));
+
+    console.log('legends with color: ', legendsWithColor);
+
+    return legendsWithColor;
+  }
+
+  setDefaultColors(legends) {
+    const colors = [
+      '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53',
+      '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'
+    ];
+    return this.setColors(legends, colors);
   }
 
   render() {
@@ -110,19 +119,23 @@ export default class PieChart extends React.Component {
      * TODO: define colors and icons
      */
     const legendData = [
-      { color: '', label: 'Masculino', icon: '' },
-      { color: '', label: 'Feminino', icon: '' },
-      { color: '', label: 'Não Informou', icon: '' }
+      { label: 'Masculino' },
+      { label: 'Feminino' },
+      { label: 'Não Informou' }
     ];
+
+
     const option = this.getOption();
 
     return (
       <div>
         <Legend
-          data={legendData}
-          onClick={legend => this.onLegendClick(legend)}
-          onHover={event => this.onLegendHover(event)}
+          data={this.setDefaultColors(legendData)}
+          onClick={(legend) => this.onLegendClick(legend)}
+          onHover={(event) => this.onLegendHover(event)}
           orientation='vertical'
+          icon={legend => <span><svg width="13" height="13" fill={legend.color}>
+            <circle cx="6.5" cy="6.5" r="6.5" /></svg></span>}
         />
         <ReactEcharts
           option={option}

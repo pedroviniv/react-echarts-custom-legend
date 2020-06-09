@@ -1,0 +1,7 @@
+.disabled .legend-icon svg {
+  fill: lightgrey !important;
+}
+
+.legend-icon {
+  margin-right: 10px;
+}
