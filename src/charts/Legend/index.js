@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import './index.css';
+import './styles.css';
 import LegendItem from './LegendItem';
+import { toCssClass } from '../orientation';
 
 function Icon({props}) {
   return <span></span>
 }
 
-const Legend = ({data, onClick, onHover, orientation, icon = <Icon />}) => {
+const Legend = ({data, onClick, onHover, orientation, scrollable = false, icon = <Icon />}) => {
 
   const [selectedLegends, setSelectedLegends] = useState([]);
 
@@ -77,7 +78,9 @@ const Legend = ({data, onClick, onHover, orientation, icon = <Icon />}) => {
     );
   }
 
-  const legendClassName = `legend ${orientation}`;
+  const orientationCssClass = toCssClass(orientation);
+
+  const legendClassName = `legend ${orientationCssClass}${scrollable ? ' scrollable' : ''}`;
 
   return (
     <ul className={legendClassName}>

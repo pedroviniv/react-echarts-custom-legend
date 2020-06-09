@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './styles.css';
 
 function isFunction(functionToCheck) {
   return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';

@@ -1,0 +1,22 @@
+.chart {
+  background-color: grey;
+  display: flex;
+}
+
+.chart.vertical {
+  flex-direction: column;
+}
+
+.chart.horizontal {
+  flex-direction: row;
+}
+
+.chart > .legend {
+  background-color: lightblue;
+}
+
+.chart > .content {
+  background-color: lightgrey;
+  width: 100%;
+  height: 100%;
+}

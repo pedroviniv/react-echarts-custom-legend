@@ -1,0 +1,29 @@
+/* GENERAL */
+
+.legend {
+  width: 100%;
+  white-space: nowrap;
+  padding-left: 0;
+}
+
+/* HORIZONTAL */
+
+.legend.horizontal .legend-item {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.legend.horizontal.scrollable {
+  overflow-x: scroll;
+}
+
+/* VERTICAL */
+
+.legend.vertical.scrollable {
+  overflow-y: scroll;
+}
+
+.legend.vertical .legend-item {
+  display: block;
+  margin-top: 5px;
+}

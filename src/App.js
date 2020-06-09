@@ -1,10 +1,10 @@
 import React from 'react';
-import PieChart from './charts/PieChart';
+import ChartCard from './ChartCard';
 
 function App() {
   return (
     <div className="App" style={{ width: '500px', height: '500px' }}>
-      <PieChart />
+      <ChartCard />
     </div>
   );
 }
