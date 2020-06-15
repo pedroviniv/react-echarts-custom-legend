@@ -3,10 +3,22 @@ import Legend from './Legend';
 import { VERTICAL, HORIZONTAL, toCssClass } from './orientation';
 import './styles.css';
 
+/**
+ * Higher order component que adiciona legendas customizadas a um gráfico echarts
+ * @param {*} ChartComponent componente de gráfico echarts
+ * @param {*} mapDataToLegends função que mapeia os dados do gráfico para um conjunto de legendas
+ * [{label,color,numeric,percent}]
+ */
 export default function WithLegend(ChartComponent, mapDataToLegends) {
 
   return class LegendedChart extends React.Component {
 
+    /**
+     * calcula a orientação da legenda baseado na orientação do gráfico + legenda.
+     * ex: se a orientação do gráfico for vertical, ou seja: legenda em cima e gráfico em baixo,
+     * então a orientação da legenda será horizontal: será renderizada inline.
+     * @param {*} chartOrientation 
+     */
     resolveLegendsOrientationByChartOrientation(chartOrientation) {
       if (chartOrientation === VERTICAL) {
         return HORIZONTAL;
@@ -17,7 +29,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
     setChartInstance(chartInstance) {
       this.echarts = chartInstance;
     }
-
+    /**
+     * trata evento de clique na legenda, enviando action correspondente para o echarts
+     * @param {*} legend legenda clicada
+     */
     handleLegendClick(legend) {
       if (!this.echarts) {
         return;
@@ -72,31 +87,20 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
       });
     }
 
-    /**
-     * set the given colors in the given legends
-     * @param {*} legends 
-     * @param {*} colors 
-     */
-    setColors(legends, colors) {
-      
-      const legendsWithColor = legends.map((legend, index) => ({
-        ...legend,
-        color: colors[index % colors.length],
-      }));
+    gridStyles(orientation, props) {
 
-      return legendsWithColor;
-    }
+      const orientationStrategies = {};
+      orientationStrategies[VERTICAL] = props => {
+        return [{}, {}];
+      };
 
-    /**
-     * set some default colors in the given legends
-     * @param {*} legends 
-     */
-    setDefaultColors(legends) {
-      const colors = [
-        '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53',
-        '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'
-      ];
-      return this.setColors(legends, colors);
+      orientationStrategies[HORIZONTAL] = props => {
+        const { gridSettings } = props;
+        const { legend, chart } = gridSettings;
+        return [{ width: `${legend}%` }, { width: `${chart}%` }];
+      };
+
+      return orientationStrategies[orientation](props);
     }
 
     render() {
@@ -104,10 +108,12 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
       // main props
       const { data, orientation } = this.props;
 
-      // legends props
-      const { legendIcon, legendsScrollable, legendsQuery } = this.props;    
+      const [legendStyle, chartStyle] = this.gridStyles(orientation, this.props);
 
-      const legends = this.setDefaultColors(mapDataToLegends(data));
+      // legends props
+      const { legendIcon, legendsScrollable, legendsQuery, legendMaxCharacters } = this.props;    
+
+      const legends = mapDataToLegends(data);
 
       const filteredLegends = this.filterLegends(legends, legendsQuery);
 
@@ -115,7 +121,7 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
 
       return (
         <div className={containerClassName}>
-          <div className="legend">
+          <div className="header" style={legendStyle}>
             <Legend
               data={filteredLegends}
               onClick={(legend) => this.handleLegendClick(legend)}
@@ -123,9 +129,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
               orientation={this.resolveLegendsOrientationByChartOrientation(orientation)}
               icon={legendIcon}
               scrollable={legendsScrollable}
+              maxCharacters={legendMaxCharacters}
             />
           </div>
-          <div className="content">
+          <div className="content" style={chartStyle}>
             <ChartComponent
               {...this.props}
               forwardChartInstance={echarts => this.setChartInstance(echarts)}

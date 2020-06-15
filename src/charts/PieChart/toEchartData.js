@@ -23,8 +23,11 @@ export function toOption(data) {
               avoidLabelOverlap: false,
               label: {
                   show: false,
-                  position: 'center'
-              },
+                  formatter: '{d}%',
+                  textStyle: {
+                    color: '#000000'
+                  },
+              }, // criar richText styles pra cada legenda, as legendas que n devem mostrar vai ter alguma propriedade de cortransparente ou display none
               emphasis: {
                   label: {
                       show: true,
@@ -33,7 +36,10 @@ export function toOption(data) {
                   }
               },
               labelLine: {
-                  show: false
+                  show: true,
+                  lineStyle: {
+                    color: '#000000'
+                  }
               },
               data: seriesData,
           }

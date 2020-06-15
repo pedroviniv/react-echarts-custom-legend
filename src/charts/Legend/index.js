@@ -7,7 +7,7 @@ function Icon({props}) {
   return <span></span>
 }
 
-const Legend = ({data, onClick, onHover, orientation, scrollable = false, icon = <Icon />}) => {
+const Legend = ({data, onClick, onHover, orientation, scrollable = false, maxCharacters = -1, icon = <Icon />}) => {
 
   const [selectedLegends, setSelectedLegends] = useState([]);
 
@@ -74,7 +74,9 @@ const Legend = ({data, onClick, onHover, orientation, scrollable = false, icon =
         item={item}
         onClick={handleOnClickEvent}
         onHover={onHover}
-        icon={icon} />
+        icon={icon}
+        maxCharacters={maxCharacters}
+      />
     );
   }
 

@@ -25,3 +25,10 @@
 .disabled .legend-icon svg {
   fill: lightgrey !important;
 }
+
+.legend-item > .legend-text {
+  display: inline-block;
+  vertical-align: sub;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

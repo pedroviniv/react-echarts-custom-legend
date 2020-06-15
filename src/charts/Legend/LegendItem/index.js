@@ -1,8 +1,21 @@
 import React from 'react';
 import './styles.css';
 
-function isFunction(functionToCheck) {
-  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+/**
+ * dado um objeto, verifica se este é uma função.
+ * @param {*} object 
+ */
+function isFunction(object) {
+  return object && {}.toString.call(object) === '[object Function]';
+}
+
+/**
+ * renderiza o conteudo textual exibido quando o mouse está sobre a legenda,
+ * exibindo o num. de coletas e o valor percentual.
+ * @param {*} data 
+ */
+function renderTitle(data) {
+  return `coletas: ${data.numeric}. percentual: ${data.percent}%`;
 }
 
 /**
@@ -14,7 +27,7 @@ function isFunction(functionToCheck) {
  *  - onClick (callback executado quando é realizado um click sobre o item)
  *  - onHover (callback executado quando o cursor do mouse está sobre o item)
  */
-const LegendItem = ({index, disabled, item, onClick, onHover, icon}) => {
+const LegendItem = ({index, disabled, item, onClick, onHover, icon, maxCharacters = -1}) => {
 
   const className = `legend-item${disabled ? ' disabled' : ''}`;
 
@@ -29,6 +42,8 @@ const LegendItem = ({index, disabled, item, onClick, onHover, icon}) => {
     renderedIcon = icon(target);
   }
 
+  const maxCharactersStyle = maxCharacters === -1 ? {} : {maxWidth: `${maxCharacters}ch`};
+
   return (
     <li
       className={className}
@@ -36,9 +51,10 @@ const LegendItem = ({index, disabled, item, onClick, onHover, icon}) => {
       onClick={ev => onClick(target)}
       onMouseOver={ev => onHover({target, enter: true})}
       onMouseLeave={ev => onHover({target, enter: false})}
+      title={renderTitle(item)}
     >
       <span className='legend-icon'>{renderedIcon}</span>
-      {item.label}
+      <span className='legend-text' style={maxCharactersStyle}>{item.label}</span>
     </li>
   );
 };
