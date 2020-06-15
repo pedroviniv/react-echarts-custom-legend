@@ -39,6 +39,7 @@ const LegendItem = ({index, disabled, item, onClick, onHover, icon, maxCharacter
   let renderedIcon = icon;
 
   if (isFunction(icon)) {
+    // passing the legend item data to the icon (it may be necessary to render the icon)
     renderedIcon = icon(target);
   }
 

@@ -2,30 +2,12 @@ import React, { useState } from 'react';
 import PieChart from "../charts/PieChart";
 import SearchBar from '../SearchBar';
 import { HORIZONTAL, VERTICAL } from '../charts/orientation';
+import { genData } from './namegen';
+
+const data = genData(50);
 
 function getData() {
-  return [
-    {
-      label: 'Masculino',
-      value: 541,
-      percent: 50.0
-    },
-    {
-      label: 'Feminino',
-      value: 378,
-      percent: 37.8
-    },
-    {
-      label: 'Não Informou',
-      value: 187,
-      percent: 18.7
-    },
-    {
-      label: 'Não Informou X',
-      value: 187,
-      percent: 18.7
-    },
-  ]
+  return data;
 }
 
 const ChartCard = (props) => {
@@ -39,7 +21,7 @@ const ChartCard = (props) => {
   const data = getData();
 
   return (
-    <div style={{width: '800px', height: '400px'}}>
+    <div style={{ width: '100%', height: '100%' }}>
       <SearchBar
         placeholder='Busque legendas'
         onChange={handleSearchBarChange}
@@ -52,7 +34,7 @@ const ChartCard = (props) => {
         legendIcon={legend => <span><svg width="13" height="13" fill={legend.color}>
         <circle cx="6.5" cy="6.5" r="6.5" /></svg></span>}
         gridSettings={{ legend: 18, chart: 82 }} // used when chart orientation is horizontal
-        legendMaxCharacters={10}
+        legendMaxCharacters={20}
       />
     </div>
   );

@@ -19,6 +19,10 @@
   overflow-x: scroll;
 }
 
+.legend.horizontal.plain .legend-item {
+  float: left;
+}
+
 /* VERTICAL */
 
 .legend.vertical.scrollable {

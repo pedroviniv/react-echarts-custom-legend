@@ -1,6 +1,9 @@
 import React from 'react';
 import Legend from './Legend';
-import { VERTICAL, HORIZONTAL, toCssClass } from './orientation';
+// legend constants
+import { VERTICAL as CHART_VERTICAL, HORIZONTAL as CHART_HORIZONTAL, toCssClass } from './orientation';
+// chart constants
+import { VERTICAL as LEGEND_VERTICAL, HORIZONTAL as LEGEND_HORIZONTAL } from './Legend/orientation';
 import './styles.css';
 
 /**
@@ -20,10 +23,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
      * @param {*} chartOrientation 
      */
     resolveLegendsOrientationByChartOrientation(chartOrientation) {
-      if (chartOrientation === VERTICAL) {
-        return HORIZONTAL;
+      if (chartOrientation === CHART_VERTICAL) {
+        return LEGEND_HORIZONTAL;
       }
-      return VERTICAL;
+      return LEGEND_VERTICAL;
     }
 
     setChartInstance(chartInstance) {
@@ -90,11 +93,11 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
     gridStyles(orientation, props) {
 
       const orientationStrategies = {};
-      orientationStrategies[VERTICAL] = props => {
+      orientationStrategies[CHART_VERTICAL] = props => {
         return [{}, {}];
       };
 
-      orientationStrategies[HORIZONTAL] = props => {
+      orientationStrategies[CHART_HORIZONTAL] = props => {
         const { gridSettings } = props;
         const { legend, chart } = gridSettings;
         return [{ width: `${legend}%` }, { width: `${chart}%` }];

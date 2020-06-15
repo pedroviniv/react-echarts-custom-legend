@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import './styles.css';
 import LegendItem from './LegendItem';
-import { toCssClass } from '../orientation';
+import { toCssClass } from './orientation';
+import CircleLegendIcon from './icon/CircleLegendIcon';
 
-function Icon({props}) {
-  return <span></span>
-}
-
-const Legend = ({data, onClick, onHover, orientation, scrollable = false, maxCharacters = -1, icon = <Icon />}) => {
+const Legend = ({data, onClick, onHover, orientation, scrollable = false, maxCharacters = -1, icon = CircleLegendIcon}) => {
 
   const [selectedLegends, setSelectedLegends] = useState([]);
 
@@ -82,7 +79,7 @@ const Legend = ({data, onClick, onHover, orientation, scrollable = false, maxCha
 
   const orientationCssClass = toCssClass(orientation);
 
-  const legendClassName = `legend ${orientationCssClass}${scrollable ? ' scrollable' : ''}`;
+  const legendClassName = `legend ${orientationCssClass}${scrollable ? ' scrollable' : ' plain'}`;
 
   return (
     <ul className={legendClassName}>
