@@ -90,6 +90,19 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
       });
     }
 
+    /**
+     * get orientation styles based in the chart orientation and  in the properties passed.
+     * 
+     * ex: if the orientation is 'HORIZONTAL', it fill return styles for the legend-area and the
+     * chart-area in the following format:
+     * 
+     * styles = [{width},{width}]
+     * where styles[0] is the legend-area styles 
+     * and styles[1] is the chart-area styles
+     * 
+     * @param {*} orientation 
+     * @param {*} props 
+     */
     gridStyles(orientation, props) {
 
       const orientationStrategies = {};
@@ -108,17 +121,31 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
 
     render() {
 
-      // main props
+      /* main props */
       const { data, orientation } = this.props;
 
       const [legendStyle, chartStyle] = this.gridStyles(orientation, this.props);
 
-      // legends props
-      const { legendIcon, legendsScrollable, legendsQuery, legendMaxCharacters, disabledIcon, disabledIconColor, disabledText, disabledTextColor } = this.props;    
+      /* legends props */
 
+      // filter
+      const { legendsQuery, legendsFilterStrategy = this.filterLegends } = this.props;
+
+      // general
+      const {
+        legendsScrollable,
+        legendMaxCharacters,
+        legendIcon,
+        legendDisabledIconColor,
+        legendDisabledIcon,
+        legendDisabledTextColor,
+        legendDisabledText,
+      } = this.props;
+
+      // extracting legends from data
       const legends = mapDataToLegends(data);
-
-      const filteredLegends = this.filterLegends(legends, legendsQuery);
+      // applying filter on the extracted legends
+      const filteredLegends = legendsFilterStrategy(legends, legendsQuery);
 
       const containerClassName = `chart ${toCssClass(orientation)}`;
 
@@ -133,10 +160,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
               icon={legendIcon}
               scrollable={legendsScrollable}
               maxCharacters={legendMaxCharacters}
-              disabledIconColor={disabledIconColor}
-              disabledIcon={disabledIcon}
-              disabledTextColor={disabledTextColor}
-              disabledText={disabledText}
+              disabledIconColor={legendDisabledIconColor}
+              disabledIcon={legendDisabledIcon}
+              disabledTextColor={legendDisabledTextColor}
+              disabledText={legendDisabledText}
             />
           </div>
           <div className="content" style={chartStyle}>

@@ -35,10 +35,10 @@ const ChartCard = (props) => {
         legendsScrollable
         orientation={VERTICAL}
         legendIcon={CircleLegendIcon}
-        disabledIconColor='#e3e3e3'
-        disabledIcon={DefaultDisabledLegendIcon}
-        disabledTextColor='#e3e3e3'
-        disabledText={DefaultDisabledLegendText}
+        legendDisabledIconColor='#e3e3e3'
+        legendDisabledIcon={DefaultDisabledLegendIcon}
+        legendDisabledTextColor='#e3e3e3'
+        legendDisabledText={DefaultDisabledLegendText}
         gridSettings={{ legend: 18, chart: 82 }} // used when chart orientation is horizontal
         legendMaxCharacters={20}
       />
