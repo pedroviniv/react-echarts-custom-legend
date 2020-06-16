@@ -10,7 +10,8 @@
     "echarts-for-react": "^2.0.16",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "simple-chart-legend": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

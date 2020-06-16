@@ -1,9 +1,11 @@
 import React from 'react';
 import ChartCard from './ChartCard';
-import Legend from './charts/Legend';
 import { genData } from './ChartCard/namegen';
 import { HORIZONTAL } from './charts/orientation';
-import CircleLegendIcon from './charts/Legend/icon/CircleLegendIcon';
+import CircleLegendIcon from 'simple-chart-legend/dist/icon/CircleLegendIcon';
+import Legend from 'simple-chart-legend/dist/index';
+import DefaultDisabledLegendIcon from 'simple-chart-legend/dist/DefaultDisabledLegendIcon';
+import DefaultDisabledLegendText from 'simple-chart-legend/dist/DefaultDisabledLegendText';
 
 const data = genData(50);
 
@@ -43,6 +45,10 @@ function App() {
         onHover={(event) => {}} // desnecessário pro relatório
         orientation={HORIZONTAL} // 'HORIZONTAL' | 'VERTICAL'
         icon={CircleLegendIcon} // componente que renderiza o icone
+        disabledIconColor='#e3e3e3'
+        disabledIcon={DefaultDisabledLegendIcon}
+        disabledTextColor='#e3e3e3'
+        disabledText={DefaultDisabledLegendText}
         scrollable={false} // pro relatório este atributo deve ser false
         maxCharacters={999} // quantidade máxima de caracteres por label (se não passar nada, não ter max)
       />

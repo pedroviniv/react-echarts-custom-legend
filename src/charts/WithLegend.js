@@ -1,9 +1,9 @@
 import React from 'react';
-import Legend from './Legend';
+import Legend from 'simple-chart-legend/dist/index';
 // legend constants
 import { VERTICAL as CHART_VERTICAL, HORIZONTAL as CHART_HORIZONTAL, toCssClass } from './orientation';
 // chart constants
-import { VERTICAL as LEGEND_VERTICAL, HORIZONTAL as LEGEND_HORIZONTAL } from './Legend/orientation';
+import { VERTICAL as LEGEND_VERTICAL, HORIZONTAL as LEGEND_HORIZONTAL } from 'simple-chart-legend/dist/orientation';
 import './styles.css';
 
 /**
@@ -114,7 +114,7 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
       const [legendStyle, chartStyle] = this.gridStyles(orientation, this.props);
 
       // legends props
-      const { legendIcon, legendsScrollable, legendsQuery, legendMaxCharacters } = this.props;    
+      const { legendIcon, legendsScrollable, legendsQuery, legendMaxCharacters, disabledIcon, disabledIconColor, disabledText, disabledTextColor } = this.props;    
 
       const legends = mapDataToLegends(data);
 
@@ -133,6 +133,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
               icon={legendIcon}
               scrollable={legendsScrollable}
               maxCharacters={legendMaxCharacters}
+              disabledIconColor={disabledIconColor}
+              disabledIcon={disabledIcon}
+              disabledTextColor={disabledTextColor}
+              disabledText={disabledText}
             />
           </div>
           <div className="content" style={chartStyle}>

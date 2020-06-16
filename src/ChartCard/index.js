@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PieChart from "../charts/PieChart";
 import SearchBar from '../SearchBar';
-import { HORIZONTAL, VERTICAL } from '../charts/orientation';
+import { VERTICAL } from '../charts/orientation';
 import { genData } from './namegen';
+import CircleLegendIcon from 'simple-chart-legend/dist/icon/CircleLegendIcon';
+import DefaultDisabledLegendIcon from 'simple-chart-legend/dist/DefaultDisabledLegendIcon';
+import DefaultDisabledLegendText from 'simple-chart-legend/dist/DefaultDisabledLegendText';
 
 const data = genData(50);
 
@@ -31,8 +34,11 @@ const ChartCard = (props) => {
         legendsQuery={query}
         legendsScrollable
         orientation={VERTICAL}
-        legendIcon={legend => <span><svg width="13" height="13" fill={legend.color}>
-        <circle cx="6.5" cy="6.5" r="6.5" /></svg></span>}
+        legendIcon={CircleLegendIcon}
+        disabledIconColor='#e3e3e3'
+        disabledIcon={DefaultDisabledLegendIcon}
+        disabledTextColor='#e3e3e3'
+        disabledText={DefaultDisabledLegendText}
         gridSettings={{ legend: 18, chart: 82 }} // used when chart orientation is horizontal
         legendMaxCharacters={20}
       />
