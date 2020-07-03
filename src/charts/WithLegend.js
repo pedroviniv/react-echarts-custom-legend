@@ -1,9 +1,9 @@
 import React from 'react';
-import Legend from 'simple-chart-legend/dist/index';
+import Legend from 'simple-charts-legend/dist/index';
 // legend constants
 import { VERTICAL as CHART_VERTICAL, HORIZONTAL as CHART_HORIZONTAL, toCssClass } from './orientation';
 // chart constants
-import { VERTICAL as LEGEND_VERTICAL, HORIZONTAL as LEGEND_HORIZONTAL } from 'simple-chart-legend/dist/orientation';
+import { VERTICAL as LEGEND_VERTICAL, HORIZONTAL as LEGEND_HORIZONTAL } from 'simple-charts-legend/dist/orientation';
 import './styles.css';
 
 /**
@@ -140,6 +140,8 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
         legendDisabledIcon,
         legendDisabledTextColor,
         legendDisabledText,
+        horizontalAlign,
+        verticalAlign,
       } = this.props;
 
       // extracting legends from data
@@ -164,6 +166,10 @@ export default function WithLegend(ChartComponent, mapDataToLegends) {
               disabledIcon={legendDisabledIcon}
               disabledTextColor={legendDisabledTextColor}
               disabledText={legendDisabledText}
+              horizontalAlign={horizontalAlign}
+              verticalAlign={verticalAlign}
+              iconSize={{ width: '1em', height: '1em' }}
+              fontSize='1em'
             />
           </div>
           <div className="content" style={chartStyle}>

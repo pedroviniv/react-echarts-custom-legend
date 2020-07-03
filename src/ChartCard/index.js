@@ -3,9 +3,10 @@ import PieChart from "../charts/PieChart";
 import SearchBar from '../SearchBar';
 import { VERTICAL } from '../charts/orientation';
 import { genData } from './namegen';
-import CircleLegendIcon from 'simple-chart-legend/dist/icon/CircleLegendIcon';
-import DefaultDisabledLegendIcon from 'simple-chart-legend/dist/DefaultDisabledLegendIcon';
-import DefaultDisabledLegendText from 'simple-chart-legend/dist/DefaultDisabledLegendText';
+import CircleLegendIcon from 'simple-charts-legend/dist/icon/CircleLegendIcon';
+import DefaultDisabledLegendIcon from 'simple-charts-legend/dist/DefaultDisabledLegendIcon';
+import DefaultDisabledLegendText from 'simple-charts-legend/dist/DefaultDisabledLegendText';
+import { HORIZONTAL } from 'simple-charts-legend/dist/orientation';
 
 const data = genData(50);
 
@@ -24,15 +25,16 @@ const ChartCard = (props) => {
   const data = getData();
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: '100%', height: '100%', fontSize: '90%' }}>
       <SearchBar
         placeholder='Busque legendas'
         onChange={handleSearchBarChange}
       />
       <PieChart
         data={data}
+        horizontalAlign='center'
+        verticalAlign='center'
         legendsQuery={query}
-        legendsScrollable
         orientation={VERTICAL}
         legendIcon={CircleLegendIcon}
         legendDisabledIconColor='#e3e3e3'

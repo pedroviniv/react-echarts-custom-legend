@@ -2,10 +2,11 @@ import React from 'react';
 import ChartCard from './ChartCard';
 import { genData } from './ChartCard/namegen';
 import { HORIZONTAL } from './charts/orientation';
-import CircleLegendIcon from 'simple-chart-legend/dist/icon/CircleLegendIcon';
-import Legend from 'simple-chart-legend/dist/index';
-import DefaultDisabledLegendIcon from 'simple-chart-legend/dist/DefaultDisabledLegendIcon';
-import DefaultDisabledLegendText from 'simple-chart-legend/dist/DefaultDisabledLegendText';
+import CircleLegendIcon from 'simple-charts-legend/dist/icon/CircleLegendIcon';
+import Legend from 'simple-charts-legend/dist/index';
+import DefaultDisabledLegendIcon from 'simple-charts-legend/dist/DefaultDisabledLegendIcon';
+import DefaultDisabledLegendText from 'simple-charts-legend/dist/DefaultDisabledLegendText';
+import { VERTICAL } from 'simple-charts-legend/dist/orientation';
 
 const data = genData(50);
 
@@ -39,6 +40,7 @@ function App() {
   return (
     <div className="App" style={{ width: '900px', height: '500px' }}>
       <ChartCard />
+      <div style={{marginTop: '100px'}}></div>
       <Legend
         data={legendData} // [{label,color}]
         onClick={(legend) => {}} // desnecessário pro relatório
